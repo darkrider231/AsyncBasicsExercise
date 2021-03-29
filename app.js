@@ -8,7 +8,7 @@ function falconName() {
 function falcon(n, callback) {
     setTimeout(() => {
         name1 = n;
-        callback(n);
+        callback();
     }, 1000);
 }
 falcon(`Sam Wilson`, falconName);
@@ -24,15 +24,12 @@ function winterSoldier(n) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             name2 = n;
-            resolve(name2);
+            resolve();
         }, 2000);
     });
 }
 winterSoldier(`Bucky Barnes`)
-    .then(m => {
-        console.log(`Bucky Barnes`);
-    });
-winterSoldierName();
+    .then(winterSoldierName);
 
 // 3
 let name3 = "Agent 13";
@@ -43,18 +40,23 @@ function agent13Name() {
 function agent13(n) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve(n);
+            resolve();
             name3 = n;
          }, 3000);
     });  
 }
-async function fun() {
-    const n = await agent13(`Sharon Carter`);
-    console.log(n);
+// async function agent13Name() {
+//      await agent13(`Sharon Carter`);
+//      console.log(`Question 3`);
+//     console.log(name3);
+// }
+// agent13Name();
+// Or
+async function func1(){
+    await agent13(`Sharon carter`);
+    agent13Name();
 }
-fun();
-agent13('Sharon Carter');
-agent13Name();
+func1();
 
 // 4
 const p1 = new Promise((resolve, reject) => {
@@ -73,10 +75,6 @@ const p3 = new Promise((resolve, reject) => {
     }, 4000);
 });
 
-Promise.all([p1, p2, p3]).then(values => {
-    return Promise.all(values.map(s => s.all()));
-}).then(([p1, p2, p3]) => {
-    console.log([p1, p2, p3]);
-}).catch(e => {
-    console.log(`Error`);
-})
+// Waits until the longest (Time wise) Promise is complete before is runs the ".then" (AKA Callback function)
+Promise.all([p1, p2, p3])
+    .then(values => console.log(values));
